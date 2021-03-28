@@ -1,6 +1,10 @@
 class ArticlesController < ApplicationController
 
-    before_action :find_article, except: [:new,:create]
+    before_action :find_article, except: [:new,:create,:index]
+
+    def index
+        @articles = Article.all
+    end
 
     def show 
     end
