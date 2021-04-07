@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
 
     before_action :find_article, except: [:new,:create,:index]
+    before_action :authenticate_user!, only: [:new,:create,:edit,:update,:destroy]
 
     def index
         @articles = Article.all
@@ -13,7 +14,7 @@ class ArticlesController < ApplicationController
     end
 
     def update
-        @article.update(title: params[:article][:title], content: params[:article][:content])
+        @article.update(article_params)
         redirect_to @article
     end
 
@@ -22,8 +23,13 @@ class ArticlesController < ApplicationController
     end
 
     def create
-       @article = Article.create(title: params[:article][:title], content: params[:article][:content])
-       render json: @article
+        @article = Article.new(article_params)
+    
+        if @article.save
+          redirect_to @article
+        else
+          render :new
+        end
     end
 
     def destroy
@@ -33,5 +39,10 @@ class ArticlesController < ApplicationController
 
     def find_article
         @article = Article.find(params[:id])
+    end
+
+    private
+    def article_params
+      params.require(:article).permit(:title, :content)
     end
 end
