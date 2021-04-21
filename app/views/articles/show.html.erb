@@ -1,6 +1,23 @@
+<div class="large-container center-block">
 <h1><%= @article.title %></h1>
 
 <p><%= @article.content %></p>
+
+<div> 
+  <p> Escrito por: <strong> <%= @article.user.email %> </strong> </p>
+</div>
+
+<div class="margin-top">
+<p class="Label">Tags </div>
+
+<% @article.categories.each do |category| %>
+<span class="badge badge-pill padding" style="background-color:<%= category.color %>">
+  <%= link_to category.title, category, class:"text-white" %>
+</span>
+
+<%end%>
+
+</div>
 
     <% if user_signed_in? %>
     <ul>
@@ -10,6 +27,8 @@
                   data: { confirm: "Are you sure?" } %></li>
     </ul>
     <%end%>
+</div>
+
 
 
 <h2>Comments</h2>
