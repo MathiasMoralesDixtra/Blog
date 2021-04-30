@@ -1,7 +1,7 @@
 class Article < ApplicationRecord
     has_rich_text :content
-    has_many :comments
-    has_many :has_categories
+    has_many :comments, dependent: :destroy
+    has_many :has_categories, dependent: :destroy
     has_many :categories, through: :has_categories
     belongs_to :user
     validates :title, presence: true

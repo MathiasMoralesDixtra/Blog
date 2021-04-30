@@ -19,7 +19,7 @@
 
 </div>
 
-    <% if user_signed_in? %>
+    <% if is_article_author(@article)%>
     <ul>
   <li><%= link_to "Edit", edit_article_path(@article) %></li>
   <li><%= link_to "Destroy", article_path(@article),
@@ -35,7 +35,7 @@
 <% @article.comments.each do |comment| %>
   <p>
     <strong>Commenter:</strong>
-    <%= comment.commenter %>
+    <%= comment.author.email %>
   </p>
 
   <p>
@@ -48,10 +48,6 @@
     <% if user_signed_in? %>
     <h2>Add a comment:</h2>
 <%= form_with model: [ @article, @article.comments.build ] do |form| %>
-  <p>
-    <%= form.label :commenter %><br>
-    <%= form.text_field :commenter %>
-  </p>
   <p>
     <%= form.label :body %><br>
     <%= form.rich_text_area :body %>

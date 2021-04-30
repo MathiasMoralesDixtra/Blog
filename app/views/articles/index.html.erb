@@ -1,4 +1,9 @@
 <div class="large-container center-block"> 
     <h1>Mis articulos</h1>
+    <%=form_tag articles_path, method: :get do %>
+        <%=label_tag :created_at, "Creado"%>
+        <%=date_field_tag :created_at, params[:created_at] %>
+        <%=button_tag "Filtrar", name:nil%>
+    <%end%>
     <%= render @articles %>
 </div>
