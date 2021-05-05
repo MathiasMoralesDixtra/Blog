@@ -1,9 +1,11 @@
-<div class="large-container center-block"> 
+<div class="large-container center-block">
     <h1>Mis articulos</h1>
     <%=form_tag articles_path, method: :get do %>
-        <%=label_tag :created_at, "Creado"%>
-        <%=date_field_tag :created_at, params[:created_at] %>
-        <%=button_tag "Filtrar", name:nil%>
+    <%=label_tag :created_at, "Creado"%>
+    <%=date_field_tag :created_at, params[:created_at] %>
+    <%=label_tag :created_at, "Creador", class:'mt-4'%>
+    <%=select_tag :user_id, options_from_collection_for_select(@owners, :id, :email, params[:user_id]), {class: "form-control", prompt:"-- Inserte un valor --"}%>
+    <%=button_tag "Filtrar", name:nil, class:'btn btn-primary mt-4' %>
     <%end%>
     <%= render @articles %>
 </div>

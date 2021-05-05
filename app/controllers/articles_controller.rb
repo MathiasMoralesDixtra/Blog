@@ -5,8 +5,10 @@ class ArticlesController < ApplicationController
     before_action :authenticate_user!, only: [:new,:create,:edit,:update,:destroy]
 
     def index
+        @owners = User.all
         filter = {}
-        filter[:created_at] = params[:created_at].to_date.all_day if params[:created_at]
+        filter[:user_id] = params[:user_id] if params[:user_id].present?
+        filter[:created_at] = params[:created_at].to_date.all_day if params[:created_at].present?
         @articles = Article.where(filter)
 
     end
