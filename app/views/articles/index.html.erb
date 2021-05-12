@@ -8,4 +8,5 @@
     <%=button_tag "Filtrar", name:nil, class:'btn btn-primary mt-4' %>
     <%end%>
     <%= render @articles %>
+    <%= paginate @articles %>
 </div>

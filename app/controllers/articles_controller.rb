@@ -6,11 +6,10 @@ class ArticlesController < ApplicationController
 
     def index
         @owners = User.all
-        filter = {}
+        filter = {draft:[nil,false]}
         filter[:user_id] = params[:user_id] if params[:user_id].present?
         filter[:created_at] = params[:created_at].to_date.all_day if params[:created_at].present?
-        @articles = Article.where(filter)
-
+        @articles = Article.where(filter).page(params[:page]).per(3)
     end
 
     def show 
@@ -61,6 +60,6 @@ class ArticlesController < ApplicationController
     end
 
     def article_params
-      params.require(:article).permit(:title, :content, category_elements: [])
+      params.require(:article).permit(:title, :content, :draft, category_elements: [])
     end
 end

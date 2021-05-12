@@ -1,23 +1,17 @@
 <div class="large-container center-block">
     <h1><%= @article.title %></h1>
-
     <p><%= @article.content %></p>
-
     <div>
         <p> Escrito por: <strong> <%= @article.user.email %> </strong> </p>
     </div>
-
     <div class="margin-top">
         <p class="Label">Tags
     </div>
-
     <% @article.categories.each do |category| %>
     <span class="badge badge-pill padding" style="background-color:<%= category.color %>">
         <%= link_to category.title, category, class:"text-white" %>
     </span>
-
     <%end%>
-
 </div>
 
 <% if is_article_author(@article)%>
@@ -30,20 +24,22 @@
 <%end%>
 </div>
 
-
-
 <h2>Comments</h2>
-<% @article.comments.each do |comment| %>
-<p>
-    <strong>Commenter:</strong>
-    <%= comment.author.email %>
-</p>
 
-<p>
-    <strong>Comment:</strong>
-    <%= comment.body %>
-</p>
-<% end %>
+<div class="card padding margin-top">
+    <% @article.comments.each do |comment| %>
+    <h3 class="text-uppercase">
+        <strong>Commenter:</strong>
+        <%= comment.author.email %>
+    </h3>
+    <p class="text-secondary">
+        <strong>Comment:</strong>
+        <%= comment.body %>
+    </p>
+    <% end %>
+</div>
+
+
 
 
 <% if user_signed_in? %>
