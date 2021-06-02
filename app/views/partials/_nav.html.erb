@@ -9,12 +9,12 @@
     <li class="nav-item">
         <%= link_to "Escribir", new_article_path, class:"nav-link" %>
     </li>
+    <li class="nav-item">
+        <%= link_to "Drafts", drafts_articles_path, class:"nav-link" %>
+    </li>
     <%end%>
     <li class="nav-item">
         <%= link_to "Categorias", categories_url, class:"nav-link" %>
-    </li>
-    <li class="nav-item">
-        <%= link_to "Drafts", drafts_articles_path, class:"nav-link" %>
     </li>
     <% if user_signed_in? %>
     <li class="nav-item">
