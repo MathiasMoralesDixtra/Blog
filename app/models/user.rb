@@ -5,4 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :articles
   has_many :comments, inverse_of: :author
+  enum role: [:reader, :editor, :admin]
 end

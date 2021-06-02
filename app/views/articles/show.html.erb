@@ -14,7 +14,7 @@
     <%end%>
 </div>
 
-<% if is_article_author(@article)%>
+<% if is_article_author(@article) && check_editor_admin %>
 <ul>
     <li><%= link_to "Edit", edit_article_path(@article) %></li>
     <li><%= link_to "Destroy", article_path(@article),
@@ -24,9 +24,9 @@
 <%end%>
 </div>
 
-<h2>Comments</h2>
-
 <div class="card padding margin-top">
+    <%unless @article.draft? %>
+    <h2>Comments</h2>
     <% @article.comments.each do |comment| %>
     <h3 class="text-uppercase">
         <strong>Commenter:</strong>
@@ -53,4 +53,5 @@
     <%= form.submit %>
 </p>
 <% end %>
+<%end%>
 <%end%>

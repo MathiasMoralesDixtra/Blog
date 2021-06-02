@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :articles do
     get "user/:user_id", to: "articles#from_author", on: :collection
+    get "drafts", to:"articles#drafts", on: :collection
     resources :comments
   end
 

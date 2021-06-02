@@ -1,8 +1,11 @@
 class ArticlesController < ApplicationController
 
-    before_action :find_article, except: [:new,:create,:index,:from_author]
+    before_action :find_article, except: [:new,:create,:index,:from_author,:drafts]
+    before_action :control_edit, only: [:edit, :update]
+    before_action :control_draft_owner, only:[:show]
     before_action :find_user, only: [:from_author]
     before_action :authenticate_user!, only: [:new,:create,:edit,:update,:destroy]
+    before_action :editor_only, only: [:new, :edit, :update, :destroy]
 
     def index
         @owners = User.all
@@ -50,10 +53,29 @@ class ArticlesController < ApplicationController
     def from_author
     end
 
+    def drafts
+        @articles = Article.where(draft: true, user_id: current_user.id )
+    end
+
     private
     def find_article
         @article = Article.find(params[:id])
     end
+
+    def control_edit
+        unless @article.user_id === current_user.id 
+            flash[:notice] = "Esta de vivo #{current_user.email}"
+            redirect_to root_path 
+        end
+    end
+
+    def control_draft_owner
+        if @article.draft? && @article.user_id != current_user.id 
+            flash[:alert] = "Esta de vivo #{current_user.email}"
+            redirect_to root_path 
+        end
+    end
+
 
     def find_user
         @user = User.find(params[:user_id])
